@@ -1,0 +1,8 @@
+version: '3.6'
+
+services:
+  php:
+    image: forlabs/symfony:4.0.0
+    working_dir: '/opt'
+    volumes:
+      - .:/opt:rw

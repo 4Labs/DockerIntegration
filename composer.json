@@ -1,0 +1,14 @@
+{
+    "name": "forlabs/docker-integration",
+    "description": "Docker Environment integration",
+    "type": "library",
+    "require": {
+        "php": ">=5.6"
+    },
+    "authors": [
+        {
+            "name": "Forlabs team",
+            "email": "team@forlabs.fr"
+        }
+    ]
+}
