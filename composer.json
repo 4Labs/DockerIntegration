@@ -10,5 +10,10 @@
             "name": "Forlabs team",
             "email": "team@forlabs.fr"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Forlabs\\DockerIntegration\\" : "src"
+        }
+    }
 }
