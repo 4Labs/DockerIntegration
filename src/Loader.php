@@ -14,7 +14,7 @@ class Loader {
      * Loader constructor.
      * @param string $secretsDirectory
      */
-    public function __construct($secretsDirectory = '/var/run/secrets')
+    public function __construct($secretsDirectory = '/run/secrets')
     {
         $this->secretsDirectory = $secretsDirectory;
 
