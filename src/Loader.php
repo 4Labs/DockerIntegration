@@ -25,15 +25,20 @@ class Loader {
 
     /**
      * Get Docker secret value
-     * @param $secretName
+     * @param string $secretName
+     * @param mixed $default
      * @return string
      */
-    public function getSecret($secretName)
+    public function getSecret($secretName, $default=null)
     {
         $secretPath = $this->secretsDirectory . '/' . $secretName;
 
         if (!\file_exists($secretPath)) {
-            throw new MissingSecretException();
+            if ($default === null) {
+                throw new MissingSecretException();
+            } else {
+                return $default;
+            }
         }
 
         return \rtrim(\file_get_contents($secretPath));
@@ -42,23 +47,29 @@ class Loader {
     /**
      * Get (docker) env var value
      *
-     * @param $envName
+     * @param string $envName
+     * @param mixed $default
      * @return string
      */
-    public function getEnv($envName)
+    public function getEnv($envName, $default=null)
     {
         if (!isset($_ENV[$envName])) {
-            throw new MissingEnvException();
+            if ($default === null) {
+                throw new MissingEnvException();
+            } else {
+                return $default;
+            }
         }
 
         return $_ENV[$envName];
     }
 
     /**
-     * @param $secretName
+     * @param string $secretName
+     * @param mixed $default
      * @return mixed|string
      */
-    public function getSecretOrEnv($secretName)
+    public function getSecretOrEnv($secretName, $default=null)
     {
         try {
             return $this->getSecret($secretName);
@@ -74,6 +85,10 @@ class Loader {
             ;
         }
 
-        throw new \RuntimeException();
+        if ($default === null) {
+            throw new \RuntimeException();
+        }
+
+        return $default;
     }
 }
