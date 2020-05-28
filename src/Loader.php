@@ -4,7 +4,6 @@ namespace Forlabs\DockerIntegration;
 
 use Forlabs\DockerIntegration\Exception\MissingEnvException;
 use Forlabs\DockerIntegration\Exception\MissingSecretException;
-use Forlabs\DockerIntegration\Exception\MissingSecretsDirectoryException;
 
 class Loader {
 
@@ -17,10 +16,11 @@ class Loader {
     public function __construct($secretsDirectory = '/run/secrets')
     {
         $this->secretsDirectory = $secretsDirectory;
+    }
 
-        if (!is_dir($secretsDirectory)) {
-            throw new MissingSecretsDirectoryException();
-        }
+    public function secretDirectoryExists()
+    {
+        return \is_dir($this->secretsDirectory);
     }
 
     /**
@@ -32,11 +32,11 @@ class Loader {
     {
         $secretPath = $this->secretsDirectory . '/' . $secretName;
 
-        if (!file_exists($secretPath)) {
+        if (!\file_exists($secretPath)) {
             throw new MissingSecretException();
         }
 
-        return rtrim(file_get_contents($secretPath));
+        return \rtrim(\file_get_contents($secretPath));
     }
 
     /**
