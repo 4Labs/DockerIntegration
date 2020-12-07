@@ -53,15 +53,14 @@ class Loader {
      */
     public function getEnv($envName, $default=null)
     {
-        if (!isset($_ENV[$envName])) {
+        $value = getenv($envName);
+        if ($value === false) {
             if ($default === null) {
                 throw new MissingEnvException();
-            } else {
-                return $default;
             }
+            return $default;
         }
-
-        return $_ENV[$envName];
+        return $value;
     }
 
     /**
